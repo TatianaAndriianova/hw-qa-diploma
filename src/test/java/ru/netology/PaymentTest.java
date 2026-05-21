@@ -17,7 +17,6 @@ public class PaymentTest {
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
         Configuration.browser = "chrome";
-        Configuration.headless = true;
         Configuration.browserSize = "1920x1080";
         Configuration.timeout = 10_000;
     }
