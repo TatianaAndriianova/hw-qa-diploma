@@ -16,7 +16,6 @@ public class CreditPage {
     private final SelenideElement holderField = $$("input").get(3);
     private final SelenideElement cvcField = $("[placeholder='999']");
     private final SelenideElement continueButton = $$("button").findBy(exactText("Продолжить"));
-
     private final SelenideElement successNotification = $(".notification_status_ok");
     private final SelenideElement errorNotification = $(".notification_status_error");
 
@@ -51,22 +50,22 @@ public class CreditPage {
     }
 
     public void shouldShowCardNumberError(String expectedText) {
-        cardNumberField.parent().$(".input__sub").shouldHave(text(expectedText));
+        cardNumberField.parent().parent().$(".input__sub").shouldHave(text(expectedText));
     }
 
     public void shouldShowMonthError(String expectedText) {
-        monthField.parent().$(".input__sub").shouldHave(text(expectedText));
+        monthField.parent().parent().$(".input__sub").shouldHave(text(expectedText));
     }
 
     public void shouldShowYearError(String expectedText) {
-        yearField.parent().$(".input__sub").shouldHave(text(expectedText));
+        yearField.parent().parent().$(".input__sub").shouldHave(text(expectedText));
     }
 
     public void shouldShowHolderError(String expectedText) {
-        holderField.parent().$(".input__sub").shouldHave(text(expectedText));
+        holderField.parent().parent().$(".input__sub").shouldHave(text(expectedText));
     }
 
     public void shouldShowCvcError(String expectedText) {
-        cvcField.parent().$(".input__sub").shouldHave(text(expectedText));
+        cvcField.parent().parent().$(".input__sub").shouldHave(text(expectedText));
     }
 }
