@@ -41,6 +41,7 @@ public class CreditTest {
         var creditPage = new MainPage().clickBuyCredit();
         creditPage.fillForm(card).clickContinue();
         creditPage.shouldShowSuccess();
+        SQLHelper.getOrderCount();
         assertEquals("APPROVED", SQLHelper.getCreditStatus());
     }
 
