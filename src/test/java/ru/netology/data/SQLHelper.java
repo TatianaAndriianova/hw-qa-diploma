@@ -40,24 +40,6 @@ public class SQLHelper {
     }
 
     @SneakyThrows
-    public static long getCardNumberCount() {
-        var runner = new QueryRunner();
-        var sql = "SELECT COUNT(*) FROM payment_entity;";
-        try (var conn = getConnection()) {
-            return runner.query(conn, sql, new ScalarHandler<>());
-        }
-    }
-
-    @SneakyThrows
-    public static long getOrderCount() {
-        var runner = new QueryRunner();
-        var sql = "SELECT COUNT(*) FROM order_entity;";
-        try (var conn = getConnection()) {
-            return runner.query(conn, sql, new ScalarHandler<>());
-        }
-    }
-
-    @SneakyThrows
     public static void cleanDatabase() {
         var runner = new QueryRunner();
         try (var conn = getConnection()) {
