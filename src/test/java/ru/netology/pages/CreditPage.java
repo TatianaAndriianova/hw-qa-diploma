@@ -1,6 +1,7 @@
 package ru.netology.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import lombok.extern.slf4j.Slf4j;
 import ru.netology.data.DataHelper;
 
 import java.time.Duration;
@@ -8,6 +9,7 @@ import java.time.Duration;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
+@Slf4j
 public class CreditPage {
 
     private final SelenideElement cardNumberField = $("[placeholder='0000 0000 0000 0000']");
@@ -20,10 +22,17 @@ public class CreditPage {
     private final SelenideElement errorNotification = $(".notification_status_error");
 
     public CreditPage() {
+        log.info("Открыта страница оформления кредита");
         $x("//h3[text()='Кредит по данным карты']").shouldHave(visible);
     }
 
     public CreditPage fillForm(DataHelper.CardInfo card) {
+        log.info("Заполнение формы: номер={}, месяц={}, год={}, владелец={}, cvc={}",
+                card.getNumber(),
+                card.getMonth(),
+                card.getYear(),
+                card.getHolder(),
+                card.getCvc());
         cardNumberField.setValue(card.getNumber());
         monthField.setValue(card.getMonth());
         yearField.setValue(card.getYear());
@@ -33,39 +42,47 @@ public class CreditPage {
     }
 
     public CreditPage clickContinue() {
+        log.info("Нажатие кнопки Продолжить");
         continueButton.click();
         return this;
     }
 
     public void shouldShowSuccess() {
+        log.info("Проверка успешного уведомления");
         successNotification
                 .shouldBe(visible, Duration.ofSeconds(15))
                 .shouldHave(text("Операция одобрена Банком."));
     }
 
     public void shouldShowError() {
+        log.info("Проверка уведомления об ошибке");
         errorNotification
                 .shouldBe(visible, Duration.ofSeconds(15))
                 .shouldHave(text("Ошибка! Банк отказал в проведении операции."));
     }
 
     public void shouldShowCardNumberError(String expectedText) {
+        log.info("Проверка ошибки поля Номер карты: {}", expectedText);
         cardNumberField.parent().parent().$(".input__sub").shouldHave(text(expectedText));
     }
 
     public void shouldShowMonthError(String expectedText) {
+        log.info("Проверка ошибки поля Месяц: {}", expectedText);
         monthField.parent().parent().$(".input__sub").shouldHave(text(expectedText));
     }
 
     public void shouldShowYearError(String expectedText) {
+        log.info("Проверка ошибки поля Год: {}", expectedText);
         yearField.parent().parent().$(".input__sub").shouldHave(text(expectedText));
     }
 
     public void shouldShowHolderError(String expectedText) {
+        log.info("Проверка ошибки поля Владелец: {}", expectedText);
         holderField.parent().parent().$(".input__sub").shouldHave(text(expectedText));
     }
 
     public void shouldShowCvcError(String expectedText) {
+        log.info("Проверка ошибки поля CVC: {}", expectedText);
         cvcField.parent().parent().$(".input__sub").shouldHave(text(expectedText));
     }
 }
